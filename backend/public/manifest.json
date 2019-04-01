@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Jobby API",
+  "name": "React Jobby application backend API",
   "icons": [
     {
       "src": "favicon.ico",
