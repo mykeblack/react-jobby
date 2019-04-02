@@ -1,27 +1,17 @@
-const express = require('express');
-const bodyParser = require('body-parser')
-const path = require('path');
-const app = express();
+const bodyParser    = require('body-parser');
+const express       = require('express');
+const MongoClient   = require('mongodb').MongoClient;
+const path          = require('path');
+const app           = express();
 
-//const apiRoutes = require('./app/routes/api_routes').default(app, {});
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/ping', function (req, res) {
- return res.send('pong');
-});
+require('./app/routes')(app, {});
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', '../public/index.html'));
 });
-
-app.get('/jobs/list', function (req, res) {
-  var joblist = [
-    {'id': 1, 'title': 'node developer', 'posted':'Today'}, 
-    {'id': 2, 'title': 'apprentice developer', 'posted':'Today'}
-  ]
-  return res.send(joblist);
- });
 
 
 app.listen(process.env.PORT || 8080, () => {

@@ -1,11 +1,14 @@
-// routes/note_routes.js
-/*
-export default function(app, db) {
+// routes/api_routes.js
+// generic api calls
 
-    app.post('/notes', (req, res) => {
-        // You'll create your note here.
-        res.send('Hello')
-      });
+module.exports = function(app, db) {
+
+  app.get('/ping', (req, res) => {
+      res.send('true')
+  });
+
+  app.get('/version', (req, res) => {
+    res.send('1.0.0')
+  });
 
 };
-*/
