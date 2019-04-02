@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 require('./app/routes')(app, {});
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', '../public/index.html'));
+  res.sendFile(path.join(__dirname, 'build', '/public/index.html'));
 });
 
 

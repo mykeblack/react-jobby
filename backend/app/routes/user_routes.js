@@ -1,9 +1,8 @@
-// routes/user_routes.js
-// user api calls
+// user routes
 
 module.exports = function(app, db) {
 
-    app.post('/user/create', (req, res) => {
+    app.post('/user/register', (req, res) => {
         res.send('create new user')
     });
 
@@ -11,7 +10,7 @@ module.exports = function(app, db) {
         res.send('login user')
     });
 
-    app.post('/user/logout', (req, res) => {
+    app.get('/user/logout', (req, res) => {
         res.send('log out user')
     });
 
@@ -19,15 +18,15 @@ module.exports = function(app, db) {
         res.send('updated user')
     });    
     
-    app.post('/user/delete', (req, res) => {
+    app.delete('/user/delete', (req, res) => {
         res.send('remove user')
     });    
     
-    app.post('/user/changepassword', (req, res) => {
+    app.put('/user/changepassword', (req, res) => {
         res.send('change password')
     });   
     
-    app.post('/user/passwordreminder', (req, res) => {
+    app.get('/user/passwordreminder', (req, res) => {
         res.send('password reminder')
     });    
     
@@ -35,7 +34,11 @@ module.exports = function(app, db) {
         res.send('add cv')
     });    
     
-    app.post('/user/removecv', (req, res) => {
+    app.put('/user/updatecv', (req, res) => {
+        res.send('remove cv')
+    });  
+
+    app.delete('/user/removecv', (req, res) => {
         res.send('remove cv')
     });
         
@@ -43,7 +46,8 @@ module.exports = function(app, db) {
         res.send('add image')
     });    
     
-    app.post('/user/removeimage', (req, res) => {
+    app.delete('/user/removeimage', (req, res) => {
         res.send('remove image')
     });
+    
 };

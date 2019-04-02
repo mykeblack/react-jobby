@@ -1,10 +1,9 @@
-// routes/api_routes.js
 // generic api calls
 
 module.exports = function(app, db) {
 
   app.get('/ping', (req, res) => {
-      res.send('true')
+      res.send('pong')
   });
 
   app.get('/version', (req, res) => {
