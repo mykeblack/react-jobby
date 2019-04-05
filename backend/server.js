@@ -1,10 +1,12 @@
 const bodyParser    = require('body-parser');
 const express       = require('express');
-const MongoClient   = require('mongodb').MongoClient;
+const mongoose      = require('mongoose');
 const path          = require('path');
 const app           = express();
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(express.static(path.join(__dirname, 'build')));
 
 require('./app/routes')(app, {});
