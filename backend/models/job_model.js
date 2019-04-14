@@ -1,11 +1,9 @@
-
+const mongoose = require('mongoose');
 module.exports = function(app, db) {
     
-    var mongoose = require('mongoose');
+    const Schema = mongoose.Schema;
 
-    var Schema = mongoose.Schema;
-
-    var jobSchema = new Schema({
+    const jobSchema = new Schema({
 
         title:          String,
         description:    String,
@@ -17,6 +15,17 @@ module.exports = function(app, db) {
 
     });
 
-    const job = Mongoose.model("job", jobSchema);
+    function CreateJob(newJob){
+        let job = new jobSchema(newJob);
+        job.save(function (err) {
+            if (err) return handleError(err); // saved!
+         });
+        return job;
+    }
+
+    function handleError(err){
+        // log error here
+        console.log(err);
+    }
 
 });

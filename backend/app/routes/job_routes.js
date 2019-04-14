@@ -1,17 +1,28 @@
 // routes/app_routes.js
 // job application api calls
 const mongoose  = require('mongoose');
-const jobSchema = require('./models/job_model');
+const jobModel = require('./models/job_model');
 
 module.exports = function(app, db) {
 
     app.post('/job/create', async (req, res) => {
 
-        
-        job.title = res.title;
-        job.save();
+        let job = jobModel.Createjob({
+            title:          req.title,
+            description:    req.description,
+            posted:         DateTime.Now(),
+            sector:         req.sector,
+            location:       req.location,
+            salary:         req.salary,
+            salaryType:     req.salaryType
+        });
 
-        res.send('created new job' + JSON.stringify(job));
+        if (job != undefined){
+            res.send('created new job' + JSON.stringify(job));
+        } else {
+            res.send('error creating job');
+        }
+        
     });
 
     app.get('/job/list', async (req, res) => {
