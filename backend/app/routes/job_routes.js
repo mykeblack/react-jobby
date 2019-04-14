@@ -1,7 +1,7 @@
 // routes/app_routes.js
 // job application api calls
-const mongoose  = require('mongoose');
-const jobModel = require('./models/job_model');
+const mongoose = require('mongoose');
+const jobModel = require('./../models/job_model.js');
 
 module.exports = function(app, db) {
 
@@ -20,59 +20,53 @@ module.exports = function(app, db) {
         if (job != undefined){
             res.send('created new job' + JSON.stringify(job));
         } else {
-            res.send('error creating job');
+            res.status(500).send('error creating job');
         }
         
     });
 
+    // search for jobs
     app.get('/job/list', async (req, res) => {
 
-        var joblist = [
-          {'id': 1, 'title': 'remote node developer', 'posted':'Today', 'location': 'remote'}, 
-          {'id': 2, 'title': 'apprentice developer', 'posted':'Today', 'location:': 'London'}
-        ];
-
-        let sector = req.body.sector;
-        let location = req.body.location;
-        let contract = req.body.contract;
-        let jobType = reg.body.jobType;
-
+        var joblist = jobModel.GetJobs({
+            'sector': req.body.sector,
+            'location' : req.body.location,
+            'contract' : req.body.contract,
+            'jobType' : reg.body.jobType,
+            'minsalary' : req.body.minsalary,
+            'maxsalary' : req.body.maxsalary,
+            'salarytype' : req.body.salarytype,
+            'posted' : req.body.posted,
+            'keywords' : req.body.keywords,
+            'skills' : req.body.skills,
+            'includearchived' : req.body.includearchived,
+            'pagenumber' : req.body.pagenumber,
+            'numresults' : req.body.numresults
+        });
+        
         res.send(joblist);
     });
 
+
     // get job from database with id
     app.get('/job/:id', async (req, res) => {
-
-        try {
-            mongoose.connect('mongodb://localhost/jobby', {useNewUrlParser: true});
-            var job = await JobModel.findById(req.params.id).exec();
+        let job = jobModel.Getjob(req.body.jobId);
+        if (job != null){
             res.send(job);
-        } catch (error) {
-            res.status(500).send(error);
+        } else {
+            res.status(404).send("Job was not found");
         }
-
     });
 
     // remove job
     app.delete('/job/delete/:id', async (req, res) => {
-        try {
-            var result = await JobModel.deleteOne({ _id: request.params.id }).exec();
-            response.send(result);
-        } catch (error) {
-            response.status(500).send(error);
-        }
+        
     });
 
     // update job
     app.put('/job/:id', async (req, res) => {
-        try {
-            var job = await JobMModel.findById(request.params.id).exec();
-            job.set(request.body);
-            var result = await job.save();
-            response.send(result);
-        } catch (error) {
-            response.status(500).send(error);
-        }
+        let success = jobModel.UpdateJob(req.body.)
+        
     });
 
     // archives a job (ie makes it not live)
