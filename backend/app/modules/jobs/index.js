@@ -57,13 +57,15 @@ module.exports =  {
         };
     },
 
-    GetJob: function(jobId){
-        return null;
+    GetJob: async function(jobId){
+        console.log("finding job " + jobId);
+        var promise = jobModel.findById(jobId).exec();
+        return promise;
     },
 
     UpdateJob : function(jobId, newJob){
         try {
-            var job = db.jobs.findById(request.params.id).exec();
+            var job = db.jobs.findById(jobId).exec();
             job.set(newJob);
             var result = job.save();
             return result;

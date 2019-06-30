@@ -61,11 +61,18 @@ module.exports = function(app, db) {
 
     // get job from database with id
     app.get('/job/:id', async (req, res) => {
-        let job = jobModel.Getjob(req.body.jobId);
-        if (job != null){
-            res.send(job);
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            res.status(422).send("Invalid Job Id");
         } else {
-            res.status(404).send("Job was not found");
+            let job = jobModel.GetJob(req.params.id)
+            .then(function(job){
+                if (job != null){
+                    res.send(job);
+                } else {
+                    res.status(404).send("Job was not found");
+                }
+            });
+            
         }
     });
 
