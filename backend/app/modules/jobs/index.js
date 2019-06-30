@@ -63,15 +63,9 @@ module.exports =  {
         return promise;
     },
 
-    UpdateJob : function(jobId, newJob){
-        try {
-            var job = db.jobs.findById(jobId).exec();
-            job.set(newJob);
-            var result = job.save();
-            return result;
-        } catch (error) {
-            HandleError(err);
-        }
+    UpdateJob : async function(jobId, updatedJob){
+        var promise = jobModel.findByIdAndUpdate(jobId,{$set:updatedJob},{new:true}).exec();
+        return promise;
     },
 
     ArchiveJob: function(jobId){

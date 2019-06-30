@@ -11,6 +11,7 @@ module.exports = function(app, db) {
                 title:          req.body.title,
                 description:    req.body.description,
                 posted:         new Date(),
+                updated:        new Date(),
                 sector:         req.body.sector,
                 location:       req.body.location,
                 minSalary:      req.body.minSalary,
@@ -82,8 +83,36 @@ module.exports = function(app, db) {
     });
 
     // update job
-    app.put('/job/:id', async (req, res) => {
-        let success = jobModel.UpdateJob(req.body.Id, req.body.jobModel)
+    app.put('/job/update/:id', async (req, res) => {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            res.status(422).send("Invalid Job Id");
+        } else {
+            try{
+                var updatedJob = {           
+                    title:          req.body.title,
+                    description:    req.body.description,
+                    updated:        new Date(),
+                    sector:         req.body.sector,
+                    location:       req.body.location,
+                    minSalary:      req.body.minSalary,
+                    maxSalary:      req.body.maxSalary,
+                    salaryType:     req.body.salaryType,
+                    skills:         req.body.skills,
+                    jobTYpe:        req.body.jobType
+                };
+                jobModel.UpdateJob(req.params.id,updatedJob)
+                    .then(function(job){
+                        if (job != undefined){
+                           res.send(job);
+                        } else {
+                            res.status(500).send("Error updating job");
+                        }
+                    })
+               
+            } catch (error) {
+                res.status(500).send(error.message);
+            }
+        }
         
     });
 

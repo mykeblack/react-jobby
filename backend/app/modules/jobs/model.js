@@ -4,6 +4,7 @@ const jobSchema = new mongoose.Schema({
     title:          String,
     description:    String,
     posted:         Date,
+    updated:        Date,
     sector:         String,
     location:       String,
     minSalary:      Number,
@@ -12,7 +13,8 @@ const jobSchema = new mongoose.Schema({
     archived:       Boolean,
     skills:         [String],
     jobType:        String,
-    contracType:    String
+    contracType:    String,
+    remoteDays:     Number
 });
 
 module.exports = mongoose.model( "jobs", jobSchema);
