@@ -1,6 +1,8 @@
+const mongoose = require('mongoose');
 
-const SkillModel = Mongoose.model("skill", {
-    title: String,
-    description: String,
-    sector: SectorModel
+const skillSchema = new mongoose.Schema({
+    name:          String,
+    description:    String, 
 });
+
+module.exports = mongoose.model( "skills", skillSchema);

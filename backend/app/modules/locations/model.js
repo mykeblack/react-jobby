@@ -7,4 +7,4 @@ const locationSchema = new mongoose.Schema({
     latitude:       Number
 });
 
-module.exports = mongoose.model( "jobs", jobSchema);
+module.exports = mongoose.model( "locations", locationSchema);
