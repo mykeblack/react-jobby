@@ -28,7 +28,7 @@ module.exports = function(app, db) {
                     res.status(500).send(JSON.stringify(jobResult));
                 }
             } else {
-                res.status(500).send("Error- no result returned from job model");
+                res.status(500).send("Error- no result returned from job schema");
             }
         } catch (error){
             res.status(500).send(error.message);
