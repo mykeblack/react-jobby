@@ -79,7 +79,22 @@ module.exports = function(app, db) {
 
     // remove job
     app.delete('/job/delete/:id', async (req, res) => {
-        
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            res.status(422).send("Invalid Job Id");
+        } else {
+            try{
+            var result = jobModel.DeleteJob(req.params.id)
+                .then(function(removedJob){
+                    if (removedJob){
+                        res.send(removedJob);
+                    } else {
+                        res.status(404).send("Job was not found");
+                    }
+                })
+            } catch (error){
+                res.status(500).send(error.message);
+            }
+        }
     });
 
     // update job

@@ -11,19 +11,20 @@ module.exports =  {
             });
             return job;
         } catch (error) {
-            console.log(error);
-        };
-        return {error: "save failed"};
+            HandleError(error);
+            return {error: "save failed"};
+        };    
     },
 
 
-    DeleteJob: function (jobId) {
-        try {
-            var result = db.jobs.deleteOne({"id":jobId});
+    DeleteJob: async function (jobId) {
+        try{
+            var promise = jobModel.findOneAndRemove({_id: jobId}).exec();
+            return promise;
         } catch (error) {
             HandleError(error);
-            return false;
-        }
+            return {error: "delete failed"};
+        };  
     },
 
     GetJobs: async function(searchOptions){
@@ -53,19 +54,29 @@ module.exports =  {
             var promise = jobModel.find(dbQueryObject).limit(limit).exec();
             return promise;
         } catch (error) {
-            console.log(error);
-        };
+            HandleError(error);
+            return {error: "get jobs failed"};
+        }; 
     },
 
     GetJob: async function(jobId){
-        console.log("finding job " + jobId);
-        var promise = jobModel.findById(jobId).exec();
-        return promise;
+        try{
+            var promise = jobModel.findById(jobId).exec();
+            return promise;
+        } catch (error){
+            HandleError(error);
+            return {error: "getjob failed"};
+        }   
     },
 
     UpdateJob : async function(jobId, updatedJob){
-        var promise = jobModel.findByIdAndUpdate(jobId,{$set:updatedJob},{new:true}).exec();
-        return promise;
+        try{
+            var promise = jobModel.findByIdAndUpdate(jobId,{$set:updatedJob},{new:true}).exec();
+            return promise;
+        } catch (error){
+            HandleError(error);
+            return {error: "update failed"};
+        }
     },
 
     ArchiveJob: function(jobId){
@@ -76,8 +87,8 @@ module.exports =  {
             return result;
         } catch (error) {
             HandleError(error);
+            return {error: "archive failed"};
         }
-        return false;
     },
 
     UnarchiveJob: function(jobId){
@@ -88,16 +99,18 @@ module.exports =  {
             return result;
         } catch (error) {
             HandleError(error);
+            return {error: "unarchive failed"};
         }
-        return false;
     },
 
     ReportJob: function(jobId){
+        // not available in MVP - allows users to report fake job ads
         return false;
     },
 
     HandleError: function(err){
         // log error here
         console.log(err);
+        // todo: log error to text file 
     }
 };
