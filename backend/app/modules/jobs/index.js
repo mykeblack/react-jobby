@@ -79,25 +79,21 @@ module.exports =  {
         }
     },
 
-    ArchiveJob: function(jobId){
-        try {
-            var job = db.jobs.find({'_id':jobId}).exec();
-            job.archived=true;
-            var result = job.save();
-            return result;
-        } catch (error) {
+    ArchiveJob: async function(jobId){
+        try{
+            var promise = jobModel.findByIdAndUpdate(jobId,{$set:{archived: true}},{multi:true,new:true}).exec();
+            return promise;
+        } catch (error){
             HandleError(error);
             return {error: "archive failed"};
         }
     },
 
     UnarchiveJob: function(jobId){
-        try {
-            var job = db.jobs.find({'_id':jobId}).exec();
-            job.archived=false;
-            var result = job.save();
-            return result;
-        } catch (error) {
+        try{
+            var promise = jobModel.findByIdAndUpdate(jobId,{$set:{archived: false}},{multi:true,new:true}).exec();
+            return promise;
+        } catch (error){
             HandleError(error);
             return {error: "unarchive failed"};
         }
