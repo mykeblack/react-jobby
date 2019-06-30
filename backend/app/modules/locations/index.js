@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const jobModel = require('./../../modules/locations/model.js');
+const locationModel = require('./../../modules/locations/model.js');
 
 module.exports =  {
 
