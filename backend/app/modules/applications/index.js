@@ -37,7 +37,7 @@ module.exports =  {
             const limit = resultsPerPage * pageNumber
             // map search object to dbdbQueryObject
             var dbQueryObject= {};
-            if (searchOptions.jobid) {dbQueryObject.jobid = new RegExp(searchOptions.jobid);}
+            if (searchOptions.jobId) {dbQueryObject.jobId = new RegExp(searchOptions.jobId);}
             if (searchOptions.userId) {dbQueryObject.userId = new RegExp(searchOptions.userId);}
             if (searchOptions.skills) {dbQueryObject.skills = new RegExp(searchOptions.skills);}
 

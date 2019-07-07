@@ -1,4 +1,6 @@
 // location routes
+const mongoose = require('mongoose');
+const locationModel = require('./../modules/location/index.js');
 
 module.exports = function(app, db) {
         
@@ -31,8 +33,8 @@ module.exports = function(app, db) {
             'sortBy': req.query.sortBy,
             'pageNumber' : req.query.pageNumber,
             'resultsPerPAge' : req.query.resultsPerPage
-        }).then(function(jobs){
-            res.send(jobs);
+        }).then(function(locations){
+            res.send(locations);
         });
     });
 
@@ -61,7 +63,7 @@ module.exports = function(app, db) {
             res.status(422).send("Invalid Location Id");
         } else {
             try{
-                var updatedJob = {           
+                var updatedLoc = {           
                     name:       req.body.name,
                     parent:     req.body.parent,
                     longitude:  req.body.longitude,
@@ -79,8 +81,7 @@ module.exports = function(app, db) {
             } catch (error) {
                 res.status(500).send(error.message);
             }
-        }
-        
+        }        
     });
 
 };

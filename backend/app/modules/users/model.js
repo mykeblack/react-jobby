@@ -4,9 +4,24 @@ const userSchema = new mongoose.Schema({
     title:          String,
     firstname:      String,
     lastname:       String,
-    Role:           String,
-    Email:          String,
-    Telephone:      String,
+    role:           String,
+    email:          {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true
+    },
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true
+    },
+    password: {
+        type: String,
+        required:true
+    },
+    telephone:      String,
     created:        Date,
     updated:        Date,
     location:       String,
@@ -14,6 +29,17 @@ const userSchema = new mongoose.Schema({
     archived:       Boolean,
     skills:         [String],
     profile:        String,
+    cv:             String
+    //cvs:            [cvSchema],
 });
+/*
+// todo - create facility for multiple CVs
+const cvSchema = new mongoose.Schema({
+    title:          String,
+    public:         Boolean,
+    primary:        Boolean
+
+})
+*/
 
 module.exports = mongoose.model( "users", userSchema);

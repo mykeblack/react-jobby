@@ -3,10 +3,9 @@ const mongoose = require('mongoose');
 const appSchema = new mongoose.Schema({
     jobId:          String,
     userId:         String,
-    coveringLetter: String,
+    coverLetter:    String,
     cvFile:         String,
     created:        Date,
-    latitude:       Number,
     status:         String
 });
 

@@ -1,5 +1,5 @@
-// routes/app_routes.js
-// job application api calls
+// routes/job_routes.js
+// job api calls
 const mongoose = require('mongoose');
 const jobModel = require('./../modules/jobs/index.js');
 
@@ -133,7 +133,6 @@ module.exports = function(app, db) {
 
     // archives a job (ie makes it not live)
     app.put('/job/archive', async (req, res) => {
-
         try {
             var result = JobModel.find().exec();
             response.send(result);
