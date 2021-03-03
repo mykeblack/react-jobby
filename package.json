@@ -17,7 +17,7 @@
     "mongoose": "^5.4.21",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.10",
-    "pug": "^2.0.3",
+    "pug": "^3.0.1",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-scripts": "2.1.5",
